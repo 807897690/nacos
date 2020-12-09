@@ -24,7 +24,7 @@ public class AppNacosClient {
     public static void main(String[] args) {
         SpringApplication.run(AppNacosClient.class);
     }
-r
+
     @RestController
     public class NacosController{
         @Autowired
