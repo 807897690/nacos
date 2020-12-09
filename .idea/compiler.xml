@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="nacosclient" />
+        <module name="nacosuser0" />
+        <module name="nacosuser1" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="nacosclient" target="1.8" />
+      <module name="nacosuser0" target="1.8" />
+      <module name="nacosuser1" target="1.8" />
+      <module name="spring-nacos" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
