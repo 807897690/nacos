@@ -23,7 +23,7 @@ public class AppNacosUser1 {
     public class NacosController{
         
         @RequestMapping("/getUser")
-        public String echoAppName(){
+        public String echoAppName(String name){
             return "user1";
         }
 
