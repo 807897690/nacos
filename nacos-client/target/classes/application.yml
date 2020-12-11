@@ -5,6 +5,7 @@ spring:
     name: nacos-client
   cloud:
     nacos:
+      group: DEFAULT_GROUP
       discovery:
         server-addr: localhost:8848
     sentinel:

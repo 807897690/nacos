@@ -1,16 +1,17 @@
 package com;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.wzy.client.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,46 +25,37 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringBootApplication(scanBasePackages = {"com.netflix.client.config"})
 @EnableDiscoveryClient
-//@EnableFeignClients
-//@ComponentScan("com")
+@EnableFeignClients
+@ComponentScan("com.wzy")
 public class AppNacosClient {
 
     public static void main(String[] args) {
         SpringApplication.run(AppNacosClient.class);
     }
 
-//    @FeignClient(value = "nacos-user", fallback = UserFallBack.class)
-//    public interface UserClient {
-//
-//        @RequestMapping("/getUser")
-//        String getUser(@RequestParam("name") String name);
-//
-//    }
-//
-//    @Component
-//    public class UserFallBack implements UserClient {
-//
-//        @Override
-//        public String getUser(String name) {
-//            return "降级方法";
-//        }
-//    }
-
     @RestController
     public class NacosController{
         @Autowired
         private RestTemplate restTemplate;
-//        @Autowired
-//        private UserClient userClient;
+        @Autowired
+        private UserClient userClient;
 
         @RequestMapping("/getUser")
+        @SentinelResource(value = "/getUser", blockHandler = "blockHandler")
         public String echoAppName(String name){
             return restTemplate.getForObject("http://nacos-user/getUser",String.class);
         }
-//        @RequestMapping("/getUser1")
-//        public String getUser1(String name){
-//            return userClient.getUser(name);
-//        }
+
+        public String blockHandler(String name, BlockException e) {
+            e.printStackTrace();
+            return "熔断处理";
+        }
+
+
+        @RequestMapping("/getUser1")
+        public String getUser1(String name){
+            return userClient.getUser(name);
+        }
     }
 
     //Instantiate RestTemplate Instance

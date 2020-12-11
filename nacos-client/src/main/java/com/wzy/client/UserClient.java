@@ -1,6 +1,6 @@
-package com.client;
+package com.wzy.client;
 
-import com.fallback.UserFallBack;
+import com.wzy.fallback.UserFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Date 2020/12/10 20:43
  * @Version 1.0
  */
-//@FeignClient(value = "nacos-user", fallback = UserFallBack.class)
+@FeignClient(value = "nacos-user", fallback = UserFallBack.class)
 public interface UserClient {
 
     @RequestMapping("/getUser")

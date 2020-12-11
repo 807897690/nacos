@@ -1,6 +1,6 @@
-package com.fallback;
+package com.wzy.fallback;
 
-import com.client.UserClient;
+import com.wzy.client.UserClient;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Date 2020/12/10 20:46
  * @Version 1.0
  */
-//@Component
+@Component
 public class UserFallBack implements UserClient {
 
     @Override
